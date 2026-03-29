@@ -182,72 +182,60 @@
 
         /* ===== HERO ===== */
         .hero {
-            background: var(--dark);
+            background: #0b0e1a;
             min-height: 620px;
+            height: 620px;
             position: relative;
             overflow: hidden;
             display: flex;
             align-items: center;
         }
 
-        /* BIG V SHAPE */
-        .hero-v {
+        /* ── Right photo panel: man with laptop fills right 62% ── */
+        .hero-photo-panel {
             position: absolute;
             right: 0;
             top: 0;
-            width: 55%;
+            width: 62%;
             height: 100%;
-            clip-path: polygon(30% 0%, 100% 0%, 100% 100%, 60% 100%, 20% 0%);
-            background: linear-gradient(135deg, #1e2d50 0%, #0d1a30 100%);
             z-index: 1;
-        }
-
-        .hero-v::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(160deg, rgba(240, 90, 40, 0.18) 0%, transparent 60%);
-        }
-
-        /* Orange V accent */
-        .hero-v-accent {
-            position: absolute;
-            right: 10%;
-            top: 0;
-            width: 0;
-            height: 0;
-            border-left: 80px solid transparent;
-            border-right: 80px solid transparent;
-            border-top: 200px solid var(--orange);
-            opacity: 0.85;
-            z-index: 2;
-            filter: blur(0px);
-        }
-
-        .hero-v-big {
-            position: absolute;
-            right: 5%;
-            top: 0;
-            z-index: 2;
-            width: 320px;
-            height: 580px;
             overflow: hidden;
         }
 
-        /* SVG V shape - the main orange V */
-        .v-shape-svg {
-            position: absolute;
-            right: 0;
-            top: 0;
-            z-index: 2;
-            width: 52%;
+        .hero-photo-panel img {
+            width: 100%;
             height: 100%;
+            object-fit: cover;
+            object-position: center top;
+            display: block;
         }
 
+        /* dark fade on left edge of photo so it blends into navy */
+        .hero-photo-panel::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to right, #0b0e1a 0%, rgba(11, 14, 26, 0.55) 30%, rgba(11, 14, 26, 0.10) 65%, transparent 100%);
+        }
+
+        /* ── V shape: two solid orange arms, full hero height, no effects ── */
+        .hero-v-svg {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        /* ── Connection graph floats in gap between V arms ── */
+
+
+        /* ── Text content ── */
         .hero-content {
             position: relative;
             z-index: 5;
-            max-width: 480px;
+            max-width: 440px;
         }
 
         .hero-badge {
@@ -291,7 +279,7 @@
             font-size: 15px;
             line-height: 1.7;
             margin-bottom: 32px;
-            max-width: 400px;
+            max-width: 380px;
         }
 
         .hero-btns {
@@ -357,110 +345,36 @@
             color: #fff;
         }
 
-        /* Hero image area */
-        .hero-img-wrap {
-            position: absolute;
-            right: 0;
-            top: 0;
-            width: 55%;
-            height: 100%;
-            z-index: 3;
-            overflow: hidden;
+        /* conn-line animation (used in graph) */
+        .conn-line {
+            stroke: rgba(240, 90, 40, 0.45);
+            stroke-width: 1.5;
+            stroke-dasharray: 5, 4;
+            animation: dashFlow 2s linear infinite;
         }
 
-        .hero-person-img {
-            position: absolute;
-            right: 80px;
-            bottom: 0;
-            height: 90%;
-            width: auto;
-            object-fit: cover;
-            object-position: top;
-            z-index: 4;
+        @keyframes dashFlow {
+            to {
+                stroke-dashoffset: -18;
+            }
         }
 
-        /* Connection graph / circular node diagram */
-        .connection-graph {
-            position: absolute;
-            right: 30px;
-            top: 50%;
-            transform: translateY(-55%);
-            z-index: 6;
-            width: 220px;
-            height: 220px;
-        }
-
-        .graph-svg {
-            width: 100%;
-            height: 100%;
-        }
-
-        /* Floating stats in hero */
-        .hero-stat-card {
-            position: absolute;
-            background: #fff;
-            border-radius: 12px;
-            padding: 14px 20px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
-            z-index: 7;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .hero-stat-card.card1 {
-            left: 420px;
-            bottom: 80px;
-        }
-
-        .hero-stat-card.card2 {
-            left: 380px;
-            top: 80px;
-        }
-
-        .stat-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 10px;
-            background: rgba(240, 90, 40, .1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .stat-icon i {
-            color: var(--orange);
-            font-size: 18px;
-        }
-
-        .stat-num {
-            font-weight: 800;
-            font-size: 20px;
-            color: var(--dark);
-            line-height: 1;
-        }
-
-        .stat-label {
-            font-size: 11px;
-            color: var(--text-light);
-        }
-
-        /* Decorative dots */
+        /* Decorative dots bottom-left */
         .hero-dots {
             position: absolute;
-            left: 50px;
-            bottom: 40px;
-            z-index: 4;
+            left: 40px;
+            bottom: 36px;
+            z-index: 5;
             display: grid;
             grid-template-columns: repeat(6, 8px);
-            gap: 6px;
+            gap: 7px;
         }
 
         .hero-dots span {
             width: 4px;
             height: 4px;
             border-radius: 50%;
-            background: rgba(255, 255, 255, .2);
+            background: rgba(255, 255, 255, .18);
             display: block;
         }
 
@@ -1519,40 +1433,6 @@
         }
 
         /* Animations */
-        @keyframes float {
-
-            0%,
-            100% {
-                transform: translateY(0)
-            }
-
-            50% {
-                transform: translateY(-12px)
-            }
-        }
-
-        @keyframes pulse-ring {
-            0% {
-                transform: scale(1);
-                opacity: 1
-            }
-
-            100% {
-                transform: scale(1.8);
-                opacity: 0
-            }
-        }
-
-        @keyframes spin-slow {
-            from {
-                transform: rotate(0deg)
-            }
-
-            to {
-                transform: rotate(360deg)
-            }
-        }
-
         @keyframes fadeUp {
             from {
                 opacity: 0;
@@ -1563,10 +1443,6 @@
                 opacity: 1;
                 transform: translateY(0)
             }
-        }
-
-        .animate-float {
-            animation: float 4s ease-in-out infinite;
         }
 
         /* Scroll animations */
@@ -1580,86 +1456,6 @@
             opacity: 1;
             transform: translateY(0);
         }
-
-        /* Node connection graph styles */
-        .node {
-            transition: all .3s;
-        }
-
-        .node circle {
-            fill: var(--orange);
-        }
-
-        .node-center circle {
-            fill: #fff;
-            stroke: var(--orange);
-            stroke-width: 3;
-        }
-
-        .node-label {
-            fill: #fff;
-            font-size: 8px;
-            font-family: var(--font);
-            font-weight: 600;
-            text-anchor: middle;
-            dominant-baseline: middle;
-        }
-
-        .conn-line {
-            stroke: rgba(240, 90, 40, .4);
-            stroke-width: 1.5;
-            stroke-dasharray: 4, 3;
-            animation: dashFlow 2s linear infinite;
-        }
-
-        @keyframes dashFlow {
-            to {
-                stroke-dashoffset: -14;
-            }
-        }
-
-        /* Hero right section V shape with image */
-        .hero-right {
-            position: absolute;
-            right: 0;
-            top: 0;
-            width: 55%;
-            height: 100%;
-            z-index: 3;
-            overflow: hidden;
-        }
-
-        .hero-right-bg {
-            position: absolute;
-            inset: 0;
-            clip-path: polygon(25% 0%, 100% 0%, 100% 100%, 55% 100%, 10% 0%);
-            background: linear-gradient(135deg, #162240 0%, #0e1628 100%);
-        }
-
-        .hero-right-overlay {
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(to right, var(--dark) 0%, transparent 25%);
-        }
-
-        .hero-man {
-            position: absolute;
-            bottom: 0;
-            right: 90px;
-            height: 92%;
-            width: auto;
-            z-index: 5;
-            filter: drop-shadow(0 0 40px rgba(0, 0, 0, 0.5));
-        }
-
-        /* Orange V symbol */
-        .v-symbol {
-            position: absolute;
-            top: -20px;
-            right: 120px;
-            z-index: 4;
-            opacity: 0.9;
-        }
     </style>
 </head>
 
@@ -1669,7 +1465,8 @@
     <div class="topbar">
         <div class="container">
             <div class="topbar-left">
-                <span><i class="fas fa-envelope"></i>info@solatek.com</span>
+                <span><i class="fas fa-envelope"></i><a href="/cdn-cgi/l/email-protection" class="__cf_email__"
+                        data-cfemail="9af3f4fcf5dae9f5f6fbeefff1b4f9f5f7">[email&#160;protected]</a></span>
                 <span><i class="fas fa-phone"></i>+44 372 919 921</span>
                 <span><i class="fas fa-map-marker-alt"></i>London, United Kingdom</span>
             </div>
@@ -1704,7 +1501,96 @@
 
     <!-- ===== HERO ===== -->
     <section class="hero">
-        <div class="container" style="position:relative;z-index:6;width:100%">
+
+        <!-- ① RIGHT BACKGROUND: man with laptop photo (right 62%) -->
+        <div class="hero-photo-panel">
+            <img src="https://images.unsplash.com/photo-1521737852567-6949f3f9f2b5?w=1200&fit=crop&crop=center&auto=format"
+                alt="IT Professional working" />
+        </div>
+
+        <!-- ② V SHAPE: two solid orange arms only — no gradients, no effects
+       ViewBox = 1440 × 620 (matches hero px size)
+       Left arm  polygon: (480,0)→(625,0)→(778,620)→(718,620)
+       Right arm polygon: (895,0)→(1040,0)→(798,620)→(738,620)
+       Inner-edge tips share the same bottom center (748–778), gap = 20px
+       Gap between arms at top: 895−625 = 270px (dark navy visible there)
+  -->
+        <svg class="hero-v-svg" viewBox="0 0 1440 620" preserveAspectRatio="xMidYMid slice"
+            xmlns="http://www.w3.org/2000/svg">
+
+            <!-- LEFT ARM: top-left → bottom-center -->
+            <polygon points="480,0 630,0 783,620 718,620" fill="#f05a28" />
+
+            <!-- RIGHT ARM: top-right → bottom-center -->
+            <polygon points="898,0 1048,0 802,620 737,620" fill="#f05a28" />
+
+        </svg>
+
+        <!-- ③ CONNECTION GRAPH: floats in the dark gap between the two V arms -->
+        <div class="hero-graph">
+            <svg viewBox="0 0 190 190" xmlns="http://www.w3.org/2000/svg">
+                <!-- orbit rings -->
+                <circle cx="95" cy="95" r="82" fill="none" stroke="rgba(240,90,40,0.20)" stroke-width="1"
+                    stroke-dasharray="5,4" />
+                <circle cx="95" cy="95" r="58" fill="none" stroke="rgba(240,90,40,0.28)" stroke-width="1"
+                    stroke-dasharray="4,3" />
+                <circle cx="95" cy="95" r="36" fill="none" stroke="rgba(240,90,40,0.38)" stroke-width="1.2" />
+
+                <!-- spoke lines -->
+                <line class="conn-line" x1="95" y1="95" x2="95" y2="13" />
+                <line class="conn-line" x1="95" y1="95" x2="165" y2="55" />
+                <line class="conn-line" x1="95" y1="95" x2="170" y2="135" />
+                <line class="conn-line" x1="95" y1="95" x2="125" y2="174" />
+                <line class="conn-line" x1="95" y1="95" x2="60" y2="174" />
+                <line class="conn-line" x1="95" y1="95" x2="22" y2="135" />
+                <line class="conn-line" x1="95" y1="95" x2="26" y2="57" />
+
+                <!-- outer nodes -->
+                <circle cx="95" cy="13" r="12" fill="#f05a28" />
+                <text x="95" y="17" text-anchor="middle" font-size="10" fill="#fff">💡</text>
+
+                <circle cx="165" cy="55" r="12" fill="#f05a28" />
+                <text x="165" y="59" text-anchor="middle" font-size="10" fill="#fff">🔒</text>
+
+                <circle cx="170" cy="135" r="12" fill="#f05a28" />
+                <text x="170" y="139" text-anchor="middle" font-size="10" fill="#fff">☁</text>
+
+                <circle cx="125" cy="174" r="12" fill="#f05a28" />
+                <text x="125" y="178" text-anchor="middle" font-size="10" fill="#fff">📱</text>
+
+                <circle cx="60" cy="174" r="12" fill="#f05a28" />
+                <text x="60" y="178" text-anchor="middle" font-size="10" fill="#fff">⚙</text>
+
+                <circle cx="22" cy="135" r="12" fill="#f05a28" />
+                <text x="22" y="139" text-anchor="middle" font-size="10" fill="#fff">📊</text>
+
+                <circle cx="26" cy="57" r="12" fill="#f05a28" />
+                <text x="26" y="61" text-anchor="middle" font-size="10" fill="#fff">🌐</text>
+
+                <!-- inner mid-ring dots -->
+                <circle cx="95" cy="37" r="6" fill="rgba(240,90,40,0.60)" />
+                <circle cx="146" cy="66" r="6" fill="rgba(240,90,40,0.60)" />
+                <circle cx="146" cy="124" r="6" fill="rgba(240,90,40,0.60)" />
+                <circle cx="95" cy="153" r="6" fill="rgba(240,90,40,0.60)" />
+                <circle cx="44" cy="124" r="6" fill="rgba(240,90,40,0.60)" />
+                <circle cx="44" cy="66" r="6" fill="rgba(240,90,40,0.60)" />
+
+                <!-- center hub -->
+                <circle cx="95" cy="95" r="24" fill="#0b0e1a" stroke="#f05a28" stroke-width="2.5" />
+                <text x="95" y="92" text-anchor="middle" font-size="10" fill="#f05a28" font-weight="800"
+                    font-family="Poppins,sans-serif">IT</text>
+                <text x="95" y="104" text-anchor="middle" font-size="6.5" fill="#6688aa"
+                    font-family="Poppins,sans-serif">Solutions</text>
+
+                <!-- white accent dots on 3 outer nodes -->
+                <circle cx="95" cy="13" r="4.5" fill="#fff" opacity="0.9" />
+                <circle cx="170" cy="135" r="4.5" fill="#fff" opacity="0.9" />
+                <circle cx="26" cy="57" r="4.5" fill="#fff" opacity="0.9" />
+            </svg>
+        </div>
+
+        <!-- ④ TEXT CONTENT (left side) -->
+        <div class="container" style="position:relative;z-index:5;width:100%;">
             <div class="hero-content">
                 <div class="hero-badge">Best Brand Provider</div>
                 <h1>Elevate Your<br><span>Business</span> with IT<br>Excellence</h1>
@@ -1720,120 +1606,14 @@
             </div>
         </div>
 
-        <!-- Hero right section with V shape and man -->
-        <div class="hero-right">
-            <div class="hero-right-bg"></div>
-            <div class="hero-right-overlay"></div>
-
-            <!-- Big Orange V Shape SVG -->
-            <svg class="v-symbol" width="420" height="560" viewBox="0 0 420 560" fill="none"
-                xmlns="http://www.w3.org/2000/svg">
-                <path d="M0 0 L160 0 L210 480 L260 0 L420 0 L260 560 L160 560 Z" fill="#f05a28" opacity="0.92" />
-            </svg>
-
-
-
-            <!-- Connection Node Graph -->
-            <div class="connection-graph">
-                <svg class="graph-svg" viewBox="0 0 220 220" xmlns="http://www.w3.org/2000/svg">
-                    <!-- Dashed circle rings -->
-                    <circle cx="110" cy="110" r="95" fill="none" stroke="rgba(240,90,40,0.2)" stroke-width="1"
-                        stroke-dasharray="4,4" />
-                    <circle cx="110" cy="110" r="68" fill="none" stroke="rgba(240,90,40,0.25)" stroke-width="1"
-                        stroke-dasharray="3,3" />
-                    <circle cx="110" cy="110" r="42" fill="none" stroke="rgba(240,90,40,0.3)" stroke-width="1" />
-
-                    <!-- Connection lines -->
-                    <line class="conn-line" x1="110" y1="110" x2="110" y2="16" />
-                    <line class="conn-line" x1="110" y1="110" x2="190" y2="64" />
-                    <line class="conn-line" x1="110" y1="110" x2="197" y2="155" />
-                    <line class="conn-line" x1="110" y1="110" x2="145" y2="200" />
-                    <line class="conn-line" x1="110" y1="110" x2="70" y2="200" />
-                    <line class="conn-line" x1="110" y1="110" x2="28" y2="155" />
-                    <line class="conn-line" x1="110" y1="110" x2="30" y2="66" />
-
-                    <!-- Outer nodes -->
-                    <g class="node">
-                        <circle cx="110" cy="16" r="12" fill="#f05a28" /><text class="node-label" x="110" y="16">
-                            <tspan font-size="9">💡</tspan>
-                        </text>
-                    </g>
-                    <g class="node">
-                        <circle cx="190" cy="64" r="12" fill="#f05a28" /><text class="node-label" x="190" y="64">
-                            <tspan font-size="9">🔒</tspan>
-                        </text>
-                    </g>
-                    <g class="node">
-                        <circle cx="197" cy="155" r="12" fill="#f05a28" /><text class="node-label" x="197" y="155">
-                            <tspan font-size="9">☁</tspan>
-                        </text>
-                    </g>
-                    <g class="node">
-                        <circle cx="145" cy="200" r="12" fill="#f05a28" /><text class="node-label" x="145" y="200">
-                            <tspan font-size="9">📱</tspan>
-                        </text>
-                    </g>
-                    <g class="node">
-                        <circle cx="70" cy="200" r="12" fill="#f05a28" /><text class="node-label" x="70" y="200">
-                            <tspan font-size="9">⚙</tspan>
-                        </text>
-                    </g>
-                    <g class="node">
-                        <circle cx="28" cy="155" r="12" fill="#f05a28" /><text class="node-label" x="28" y="155">
-                            <tspan font-size="9">📊</tspan>
-                        </text>
-                    </g>
-                    <g class="node">
-                        <circle cx="30" cy="66" r="12" fill="#f05a28" /><text class="node-label" x="30" y="66">
-                            <tspan font-size="9">🌐</tspan>
-                        </text>
-                    </g>
-
-                    <!-- Inner ring nodes -->
-                    <g class="node">
-                        <circle cx="110" cy="42" r="8" fill="rgba(240,90,40,0.7)" />
-                    </g>
-                    <g class="node">
-                        <circle cx="168" cy="76" r="8" fill="rgba(240,90,40,0.7)" />
-                    </g>
-                    <g class="node">
-                        <circle cx="168" cy="144" r="8" fill="rgba(240,90,40,0.7)" />
-                    </g>
-                    <g class="node">
-                        <circle cx="110" cy="178" r="8" fill="rgba(240,90,40,0.7)" />
-                    </g>
-                    <g class="node">
-                        <circle cx="52" cy="144" r="8" fill="rgba(240,90,40,0.7)" />
-                    </g>
-                    <g class="node">
-                        <circle cx="52" cy="76" r="8" fill="rgba(240,90,40,0.7)" />
-                    </g>
-
-                    <!-- Center node -->
-                    <g class="node-center">
-                        <circle cx="110" cy="110" r="26" fill="#0b0e1a" stroke="#f05a28" stroke-width="2.5" />
-                        <text x="110" y="106" text-anchor="middle" font-size="10" fill="#f05a28" font-weight="800"
-                            font-family="Poppins,sans-serif">IT</text>
-                        <text x="110" y="118" text-anchor="middle" font-size="7" fill="#aaa"
-                            font-family="Poppins,sans-serif">Solutions</text>
-                    </g>
-
-                    <!-- Spinning outer ring indicator -->
-                    <circle cx="110" cy="16" r="5" fill="#fff" opacity="0.9" />
-                    <circle cx="197" cy="155" r="5" fill="#fff" opacity="0.9" />
-                    <circle cx="30" cy="66" r="5" fill="#fff" opacity="0.9" />
-                </svg>
-            </div>
-        </div>
-
         <!-- Decorative dots -->
         <div class="hero-dots">
             <span></span><span></span><span></span><span></span><span></span><span></span>
             <span></span><span></span><span></span><span></span><span></span><span></span>
             <span></span><span></span><span></span><span></span><span></span><span></span>
         </div>
-    </section>
 
+    </section>
     <!-- ===== SERVICES ===== -->
     <section class="services-section" id="services">
         <div class="container">
